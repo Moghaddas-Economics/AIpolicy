@@ -92,6 +92,7 @@ Do not describe human validation as completed until the worksheet has been compl
 
 Please cite the data source: AI Policy Tracker. (2026). *AI Policy Tracker Open Data Portal*. https://aipolicytracker.org/open-data (CC BY 4.0).
 
-## Licence
-
-Data: CC BY 4.0 (AI Policy Tracker). Code: add your chosen licence here (for example MIT).
+## AI assistance
+This project was developed with AI assistance  for code
+and drafting. The authors defined the research questions and design, reviewed
+the code, methods and outputs.
