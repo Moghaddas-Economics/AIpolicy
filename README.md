@@ -81,4 +81,4 @@ Please cite the data source: AI Policy Tracker. (2026). *AI Policy Tracker Open 
 
 ## AI assistance
 
-AI was used to assist with code development, debugging, and refinement of the computational workflow. The researchers reviewed, executed, tested, and validated the code and take responsibility for its functionality, analytical procedures and outputs. The research design, research questions, dataset selection, methodological decisions, interpretation of results, and conclusions remain the responsibility of the human researchers.
+AI was used to assist with code development, debugging, and refinement of the computational workflow. The researchers reviewed, executed, tested  and take responsibility for its functionality, analytical procedures and outputs. The research design, research questions, dataset selection, methodological decisions, interpretation of results, and conclusions remain the responsibility of the human researchers.
