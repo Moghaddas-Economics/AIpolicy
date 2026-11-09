@@ -66,16 +66,6 @@ Every table is displayed and saved as **CSV**; every figure is displayed and sav
 - **Accountability index (0–5):** right/protection, duty-holder, oversight and enforcement, complaint and remedy, implementation support.
 - **Statistics:** Wilson intervals, Fisher exact tests, odds ratios, Mann–Whitney and Kruskal–Wallis tests, Cohen's kappa with bootstrap intervals, logistic regression with HC1 robust standard errors, ordered logit, Herfindahl index.
 
-## Human validation and adjudication
-
-Human validation is **not complete**. The notebook only prepares it:
-
-- `human_validation_template.csv`: reproducible stratified sample (up to 60 policies, seed 42). Reviewers inspect the **official policy sources** and code each case independently.
-- `human_validation_completed.csv` (optional input): the completed worksheet; if present, human–human weighted kappa is computed.
-- `human_adjudication.csv` (optional input): columns `slug`, `adjudicated_remedy` (0–3), `adjudicated_inclusion` (0/1). If present, it overrides document-level remedy and inclusion codes and rebuilds dependent variables. Group-level scores stay rule-based.
-
-Do not describe human validation as completed until the worksheet has been completed and analysed.
-
 ## Limitations and interpretation
 
 - Coding uses **tracker-derived text** (title, summary, applicability statement, linked obligation text), not necessarily the full official legal instruments. Findings describe what is identifiable in that text; they do not show that a right or remedy is absent from the law itself.
