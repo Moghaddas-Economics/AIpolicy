@@ -4,9 +4,6 @@
 
 From recognition to enforceable accountability: a reproducible analysis of AI policy records from the AI Policy Tracker.
 
-**Team MK** (Interdisciplinary Elective: *AI, Power & Responsibility: Governing Intelligence*)
-Maryam Moghaddas Bayat, Kelvin Obour Coleman
-Target journal: *Technology in Society* (Elsevier)
 
 ## Overview
 
