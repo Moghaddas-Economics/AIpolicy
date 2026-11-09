@@ -93,6 +93,5 @@ Do not describe human validation as completed until the worksheet has been compl
 Please cite the data source: AI Policy Tracker. (2026). *AI Policy Tracker Open Data Portal*. https://aipolicytracker.org/open-data (CC BY 4.0).
 
 ## AI assistance
-This project was developed with AI assistance  for code
-and drafting. The authors defined the research questions and design, reviewed
-the code, methods and outputs.
+
+It were used to assist with code development, debugging, and refinement of the computational workflow. The researchers reviewed, executed, tested, and validated the code and take responsibility for its functionality, analytical procedures, and outputs. The research design, research questions, dataset selection, methodological decisions, interpretation of results, and conclusions remain the responsibility of the human researchers.
