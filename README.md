@@ -57,7 +57,7 @@ Every table is displayed and saved as **CSV**; every figure is displayed and sav
 ## Method in brief
 
 - **Unit of analysis:** the policy instrument; obligations are linked records.
-- **Coding:** two rule-based coders (keyword / regular-expression programs; no machine-learning or generative-AI classifier).
+- **Coding:** two rule-based coders (keyword / regular-expression programs).
   - *Coder A*: conservative, whole-word patterns.
   - *Coder B*: broader stem patterns plus modal-verb logic (aspirational wording caps the remedy at symbolic level).
 - **Scores:** a stakeholder group scores 0 (not mentioned), 1 (passive recognition), 2 (procedural protection) or 3 (explicit right or remedy) only when the group and the safeguard or right appear in the **same sentence**. Public enforcement (fines, sanctions) is a separate indicator.
