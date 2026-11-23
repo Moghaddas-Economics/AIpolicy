@@ -25,7 +25,7 @@ The notebook follows a four-stage framework: **Recognition** (who is named) → 
 - **Source:** [AI Policy Tracker Open Data Portal](https://aipolicytracker.org/open-data), licensed **CC BY 4.0** (attribution required).
 - **Snapshot accessed:** 2 November 2026.
 - **Files used (four CSV tables):** `policies`, `obligations`, `jurisdictions`, `implementation`.
-  The notebook finds them by file name under `/kaggle/input`, preferring the folder named in `DATA_FOLDER` (cell 2, currently `AIpolicy_data`).
+  The notebook finds the colected dataset by file name in desktop under `/kaggle/input`, preferring the folder named in `DATA_FOLDER` (cell 2, currently `AIpolicy_data`).
 - The raw CSV files are not modified; the notebook keeps unchanged copies for audit.
 
 > Record counts of the working snapshot must be confirmed from the notebook output after each run (cell 4 prints them).
