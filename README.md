@@ -1,83 +1,132 @@
-# AIpolicy
-
 # Stakeholder Power and Governance Asymmetries in AI Policy
 
-From recognition to enforceable accountability: a reproducible analysis of AI policy records from the AI Policy Tracker.
+**Research focus:** from stakeholder recognition to protection and enforceable accountability in AI-governance policy instruments.
 
-
-## Overview
-
-AI policies increasingly name the people affected by AI systems (consumers, workers, children, vulnerable groups, civil society). Naming a group is not the same as giving it an enforceable right or making someone answerable when harm occurs. This repository contains the analysis notebook that measures that gap across policy instruments and jurisdictions.
-
-The notebook follows a four-stage framework: **Recognition** (who is named) → **Protection** (what right or safeguard is stated) → **Accountability** (who has a duty and who checks it) → **Implementation** (what measure supports delivery). Not every instrument is expected to contain all four stages.
+This repository contains the analysis notebook and supporting materials for a structured, rule-based analysis of the AIPolicyTracker open-data tables. It is designed for reproducible execution in Kaggle or a local Python environment.
 
 ## Research questions
 
-| RQ | Question |
-|---|---|
-| RQ1 | How are different stakeholder groups represented across AI governance policies and jurisdictions? |
-| RQ2 | To what extent do AI policies translate stakeholder recognition into clearly defined rights, protections and obligations? |
-| RQ3 | What accountability mechanisms (oversight, enforcement and remedies) are established to support compliance? |
-| RQ4 | How do stakeholder protection and enforceable accountability differ across jurisdictions and implementation stages? |
+1. How are different stakeholder groups represented across AI-governance policies and jurisdictions?
+2. To what extent do AI policies translate stakeholder recognition into clearly defined rights, protections and obligations?
+3. What accountability mechanisms (oversight, enforcement and remedies) are established to support compliance with AI-policy obligations?
+4. How do stakeholder protection and enforceable accountability differ across jurisdictions and policy-implementation stages?
 
-## Data
+## Conceptual sequence
 
-- **Source:** [AI Policy Tracker Open Data Portal](https://aipolicytracker.org/open-data), licensed **CC BY 4.0** (attribution required).
-- **Snapshot accessed:** 2 November 2026.
-- **Files used (four CSV tables):** `policies`, `obligations`, `jurisdictions`, `implementation`.
-  The notebook finds the colected dataset by file name in desktop under `/kaggle/input`, preferring the folder named in `DATA_FOLDER` (cell 2, currently `AIpolicy_data`).
-- The raw CSV files are not modified; the notebook keeps unchanged copies for audit.
+**Recognition → Protection → Accountability → Implementation.**
 
+The framework does not assume that every instrument contains all four stages. Missing information in tracker-derived text is not proof that a protection or mechanism is absent from the full legal instrument.
 
-## How to run
+## Repository contents
 
-1. Create a Kaggle notebook and upload `aipolicy-8nov_corrected_fixed.ipynb` (or open it in any Python 3 environment).
-2. Attach the dataset containing the four CSV files. Internet access is not needed.
-3. Check `DATA_FOLDER` in cell 2 matches your dataset folder name.
-4. Run all cells from top to bottom. The random seed is fixed (42).
-5. Download `aipolicy_results.zip` from the notebook output.
+```text
+.
+├── README.md
+├── CITATION.cff
+├── CHANGELOG.md
+├── LICENSE
+├── requirements.txt
+├── environment.yml
+├── .gitignore
+├── notebooks/
+│   └── aipolicy_analysis.ipynb
+├── src/
+│   └── aipolicy_analysis.py
+├── data/
+│   ├── raw/                 # place the four source CSVs here; not committed
+│   └── processed/
+├── outputs/
+│   ├── figures/             # generated PDF figures
+│   └── tables/              # generated CSV tables
+├── docs/
+│   ├── codebook.md
+│   ├── data_dictionary.md
+│   └── reproducibility.md
+└── tests/
+    └── test_project_structure.py
+```
 
-**Important:** after any change to the notebook or the data, re-run it from top to bottom. Results from earlier versions are superseded and should not be reused.
+## Data required
+
+Download the four CSV tables from the [AIPolicyTracker Open Data Portal](https://aipolicytracker.org/open-data):
+
+- `policies` — policy instruments; primary unit of analysis.
+- `obligations` — obligation records linked to policy instruments.
+- `jurisdictions` — jurisdiction metadata and tier.
+- `implementation` — implementation-stage records.
+
+The notebook searches recursively for CSV filenames containing these terms. For local execution, put the four files under `data/raw/`. In Kaggle, attach the dataset containing the four CSV files as an input dataset. The notebook's current preferred folder hint is `AIpolicy_data`; if your Kaggle dataset has a different folder name, update `DATA_FOLDER` in the setup cell. Ensure that there is only one intended CSV match for each table name, because the file locator selects the best matching path.
+
+**Raw data are intentionally not included** in this repository. Check the dataset's current licence and attribution requirements at download time. The notebook records CC BY 4.0 as its configured licence label, but the repository does not independently certify the current legal status of every source record or linked document.
+
+## Quick start
+
+### Local environment
+
+```bash
+git clone <YOUR-REPOSITORY-URL>
+cd AI-Policy-Governance-Research
+
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Place the four CSV files in `data/raw/`, then launch:
+
+```bash
+jupyter lab notebooks/aipolicy_analysis.ipynb
+```
+
+Run all cells from top to bottom. The notebook writes outputs to `aipolicy_results/` (local execution) or `/kaggle/working/aipolicy_results/` (Kaggle) and creates `aipolicy_results.zip`.
+
+### Kaggle
+
+1. Create or open a Kaggle notebook.
+2. Attach the dataset containing the four AIPolicyTracker CSV files.
+3. Import `notebooks/aipolicy_analysis.ipynb` or paste its cells into a Kaggle notebook.
+4. Run all cells from the beginning.
+5. Download `aipolicy_results.zip` from the Kaggle Output panel.
+
+## Analysis workflow
+
+The notebook performs data loading and quality checks; merges obligations and jurisdiction metadata; derives instrument format and jurisdictional tier; applies two transparent rule-based text coders; reports inter-method agreement; constructs a conservative reconciled coding; produces stakeholder, remedy, accountability, actor, jurisdiction and implementation summaries; runs guarded exploratory logistic models; performs coding-sensitivity analysis; and exports tables, figures, metadata and a manifest.
+
+## Important methodological qualifications
+
+- The coded corpus is tracker-derived text assembled from policy titles, summaries, applicability fields and linked obligation descriptions. It is not necessarily the complete text of each official instrument.
+- Coder A and Coder B are two rule-based procedures. Their Cohen's kappa is **inter-method agreement**, not human inter-coder reliability or independent construct validation.
+- The reconciled minimum of the two coder scores is a conservative working specification. It is not a substitute for human review.
+- The notebook creates `human_validation_template.csv`. Human validation is not complete until reviewers inspect official sources, independently code the cases, document evidence and analyse agreement/adjudication.
+- Document-level remedies are kept separate from stakeholder-linked protections. A remedy somewhere in a document must not be described as an individual stakeholder remedy unless the coding establishes that link.
+- Regression estimates are exploratory associations, not causal effects. The notebook uses minimum event-count, convergence and separation checks; models may be withheld where data are insufficient.
+- Implementation records are descriptive only; a small number of tracker records does not support claims about implementation effectiveness.
+- Actor-reference categories may overlap; counts across actor categories are not mutually exclusive.
 
 ## Outputs
 
-Every table is displayed and saved as **CSV**; every figure is displayed and saved as vector **PDF**. The last cell zips everything into one archive (`aipolicy_results.zip`) with a run-metadata file and a manifest (35 tables, `t01`–`t35`, and 18 figures, `fig01`–`fig18`; some conditional tables may be absent).
+The notebook saves CSV tables and vector PDF figures, along with run metadata, a manifest, and a human-validation worksheet. The final cell bundles generated result files into `aipolicy_results.zip`. See `docs/reproducibility.md` for the expected output conventions.
 
-| Notebook section | Content | RQ |
-|---|---|---|
-| 1–2 | Load, quality checks, merge, derived variables, corpus description | all |
-| 3–4 | Codebook, two rule-based coders, inter-method agreement, reconciled coding | all |
-| 5 | Representation of stakeholder groups | RQ1 |
-| 6 | Recognition-to-protection funnel, binding vs non-binding, obligation profile | RQ2 |
-| 7 | Remedy levels, accountability features and index, exploratory regression | RQ3 |
-| 8 | Actors in obligations, jurisdiction indices, concentration, implementation records | RQ4 |
-| 9 | Sensitivity to coder choice | all |
-| 10–11 | Evidence-at-a-glance summary, results archive | all |
+## Citation
 
-## Method in brief
+See [`CITATION.cff`](CITATION.cff). Cite the AIPolicyTracker dataset separately according to the portal's current citation and licence instructions. Cite any official legal instruments used for manual validation individually.
 
-- **Unit of analysis:** the policy instrument; obligations are linked records.
-- **Coding:** two rule-based coders (keyword / regular-expression programs).
-  - *Coder A*: conservative, whole-word patterns.
-  - *Coder B*: broader stem patterns plus modal-verb logic (aspirational wording caps the remedy at symbolic level).
-- **Scores:** a stakeholder group scores 0 (not mentioned), 1 (passive recognition), 2 (procedural protection) or 3 (explicit right or remedy) only when the group and the safeguard or right appear in the **same sentence**. Public enforcement (fines, sanctions) is a separate indicator.
-- **Working coding:** the lower of Coder A and Coder B for each score (conservative, provisional).
-- **Accountability index (0–5):** right/protection, duty-holder, oversight and enforcement, complaint and remedy, implementation support.
-- **Statistics:** Wilson intervals, Fisher exact tests, odds ratios, Mann–Whitney and Kruskal–Wallis tests, Cohen's kappa with bootstrap intervals, logistic regression with HC1 robust standard errors, ordered logit, Herfindahl index.
+## License
 
-## Limitations and interpretation
+The repository's original code and documentation are released under the MIT License. This does **not** relicense the AIPolicyTracker data, third-party policy texts, or any generated content derived from them.
 
-- Coding uses **tracker-derived text** (title, summary, applicability statement, linked obligation text), not necessarily the full official legal instruments. Findings describe what is identifiable in that text; they do not show that a right or remedy is absent from the law itself.
-- Cohen's kappa between Coder A and Coder B measures **inter-method agreement**, not human inter-coder reliability or construct validity.
-- **Document-level remedies** (a remedy anywhere in a document) are reported separately from **stakeholder-linked protections** (a named group linked to a safeguard or right).
-- Regression models are **exploratory associations**. Binding status and statute format overlap strongly and some format-by-legal-status cells are sparse, so independent or causal effects are not claimed. Tests are not corrected for multiple comparisons.
-- The implementation table is small and weakly linked to policies; it is analysed **descriptively only**.
-- Actor matches show who is *named* in an obligation, not who is legally responsible.
 
-## Citation and attribution
+## Documentation
 
-Please cite the data source: AI Policy Tracker. (2026). *AI Policy Tracker Open Data Portal*. https://aipolicytracker.org/open-data (CC BY 4.0).
+- [`docs/codebook.md`](docs/codebook.md): stakeholder groups, score definitions, coder A/B rules, accountability features, actor categories and validation boundaries.
+- [`docs/data_dictionary.md`](docs/data_dictionary.md): source tables, keys, joins, constructed text, derived variables and run-specific data checks.
+- [`docs/reproducibility.md`](docs/reproducibility.md): environment setup, data placement, execution sequence, human-validation workflow, official-source verification and outputs.
 
-## AI assistance
+## Tests
 
-AI was used to assist with code development, debugging, and refinement of the computational workflow. The researchers reviewed, executed, tested  and take responsibility for its functionality, analytical procedures and outputs. The research design, research questions, dataset selection, methodological decisions, interpretation of results, and conclusions remain the responsibility of the human researchers.
+Run `pytest` from the repository root. These tests validate repository structure, notebook/script syntax and documentation coverage; they do not execute the empirical analysis or establish the accuracy of coded legal classifications.
